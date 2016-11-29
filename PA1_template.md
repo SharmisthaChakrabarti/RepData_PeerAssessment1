@@ -8,10 +8,6 @@ keep_md: true
 ---
 
 
-```r
-library(knitr)
-opts_chunk$set(echo = TRUE, fig.path='myFigFolder ')
-```
 
 ## Loading and preprocessing the data
 
@@ -78,6 +74,7 @@ head(totalStepsPerDay, 10)
 ## 10 2012-10-12       17382
 ```
 
+
 ```r
 ## 2. Histogram of the total number of steps taken each day.
 library(ggplot2)
@@ -90,7 +87,7 @@ ggplot(totalStepsPerDay, aes(x = Total_Steps)) +
 ## Warning: `origin` is deprecated. Please use `boundary` instead.
 ```
 
-![plot of chunk total steps per day](myFigFolder total steps per day-1.png)
+![plot of chunk Histogram of Total Steps](figure/ Histogram of Total Steps-1.png)
 
 ```r
 ## 3. Calculating the mean and median of the total number of steps taken per day.
@@ -106,6 +103,7 @@ mean_steps; median_steps
 ```
 ## [1] 10765
 ```
+
 *The mean and median total steps taken per day are 10766 and 10765, respectively.*
 
 ## What is the average daily activity pattern?
@@ -138,6 +136,7 @@ head(avgStepsPerInterval, 10)
 ## 10       45 1.4716981
 ```
 
+
 ```r
 ## 1.1. Plotting average steps for each 5-minute interval, averaged across all days.
 ggplot(avgStepsPerInterval, aes(x = Interval, y = Avg_Steps)) +
@@ -145,7 +144,7 @@ ggplot(avgStepsPerInterval, aes(x = Interval, y = Avg_Steps)) +
         labs(title = "Average Daily Steps", x = "5-minute interval", y = "Avg. steps taken, averaged across all days")
 ```
 
-![plot of chunk average steps per interval](myFigFolder average steps per interval-1.png)
+![plot of chunk Time Series Plot of Average Steps](figure/ Time Series Plot of Average Steps-1.png)
 
 ```r
 ## 2. Finding the 5-minute interval, on average across all the days in the dataset, that contains the maximum number of steps.
@@ -157,6 +156,7 @@ max_AvgSteps
 ##     Interval Avg_Steps
 ## 104      835  206.1698
 ```
+
 *The interval 835, on average, has the highest count of steps, with approximately 206 steps.*
 
 ## Imputing missing values
@@ -222,7 +222,10 @@ sum(is.na(activityData_impute$steps))   ## check if no missing values appear in 
 ## 4.1. Calculating the total number of steps taken per day.
 total_steps <- aggregate(activityData_impute$steps, by = list(activityData_impute$date), FUN = sum)
 colnames(total_steps) <- c("Date", "Total_Steps")
+```
 
+
+```r
 ## 4.2. Histogram of the total number of steps taken each day.
 ggplot(total_steps, aes(x = Total_Steps)) + 
         geom_histogram(origin = 0, fill = "dark blue", binwidth = 1000) + 
@@ -233,7 +236,7 @@ ggplot(total_steps, aes(x = Total_Steps)) +
 ## Warning: `origin` is deprecated. Please use `boundary` instead.
 ```
 
-![plot of chunk total steps per day for the imputed data](myFigFolder total steps per day for the imputed data-1.png)
+![plot of chunk Histogram of Total Steps for the Imputed Data](figure/ Histogram of Total Steps for the Imputed Data-1.png)
 
 ```r
 ## 4.3. Calculating the mean and median of the total number of steps taken per day.
@@ -310,7 +313,10 @@ str(activityData_impute)
 ## 2. Calculating the average steps for each 5-minute inteval, averaged across each weektype.
 avg_interval <- aggregate(activityData_impute$steps, by = list(activityData_impute$interval, activityData_impute$weektype), FUN = mean)
 colnames(avg_interval) <- c("interval", "weektype", "avg_steps")
+```
 
+
+```r
 ## 2.2 Making a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 ggplot(avg_interval, aes(x = interval, y = avg_steps, color = weektype)) + 
         geom_line(size = 0.75) + 
@@ -318,7 +324,7 @@ ggplot(avg_interval, aes(x = interval, y = avg_steps, color = weektype)) +
         labs(x = "Interval", y = "Number of steps")
 ```
 
-![plot of chunk adding a column containing weektype](myFigFolder adding a column containing weektype-1.png)
+![plot of chunk Panel Plot Containing Time Series Plots](figure/ Panel Plot Containing Time Series Plots-1.png)
 
 From the panel plot it appears that the test object is more active earlier in the day during weekdays compared to weekends, but more active throughout the weekends compared with weekdays.
 
