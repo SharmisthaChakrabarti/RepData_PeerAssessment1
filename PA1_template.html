@@ -272,17 +272,8 @@ mean_steps_imputed; median_steps_imputed</code></pre>
 </ol>
 <p><strong>Methodology and Result:</strong></p>
 <pre class="r"><code>## 1. Creating a new variable weektype for weekday and weekend.
-library(dplyr)</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.3.1</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>activityData_impute &lt;- mutate(activityData_impute, weektype = ifelse(weekdays(activityData_impute$date) == &quot;Saturday&quot; | weekdays(activityData_impute$date) == &quot;Sunday&quot;, &quot;weekend&quot;, &quot;weekday&quot;))
+library(dplyr)
+activityData_impute &lt;- mutate(activityData_impute, weektype = ifelse(weekdays(activityData_impute$date) == &quot;Saturday&quot; | weekdays(activityData_impute$date) == &quot;Sunday&quot;, &quot;weekend&quot;, &quot;weekday&quot;))
 activityData_impute$weektype &lt;- as.factor(activityData_impute$weektype)
 str(activityData_impute)</code></pre>
 <pre><code>## 'data.frame':    17568 obs. of  4 variables:
